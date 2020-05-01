@@ -113,4 +113,24 @@ public class StaticList<E> implements List<E> {
             s += elements[i] + " ";
         return s;
     }
+
+    /**
+     * 4. Implemente um método que remove da lista um elemento passado como parâmetro.
+     * Esse método retorna true quando o elemento é achado e removido, false caso contrário.
+     * Será removida apenas a primeira ocorrência do elemento.
+     */
+    public boolean remove(E element) {
+        for(int i = 0; i < numElements; i++) {
+            if(element.equals(elements[i])) {
+                elements[i] = null;
+                for (int j = i; j < numElements-1; j++) {
+                    elements[j] = elements[j+1];
+                }
+                elements[numElements - 1] = null;
+                numElements--;
+                return true;
+            }
+        }
+        return false;
+    }
 }
