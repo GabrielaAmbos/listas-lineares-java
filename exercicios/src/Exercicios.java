@@ -8,15 +8,17 @@ public class Exercicios {
      */
     public Integer [] evenNumbers(List<Integer> lista) {
         int cont = 0;
-        for(int i = 0; i < lista.get(i); i++) {
+        for(int i = 0; i < lista.numElements(); i++) {
             if(lista.get(i) % 2 == 0) {
                 cont++;
             }
         }
         Integer [] array = new Integer[cont];
-        for(int i = 0; i < lista.get(i); i++) {
+        cont = 0;
+        for(int i = 0; i < lista.numElements(); i++) {
             if(lista.get(i) % 2 == 0) {
-                array[i] = lista.get(i);
+                array[cont] = lista.get(i);
+                cont++;
             }
         }
         return array;
@@ -29,15 +31,17 @@ public class Exercicios {
      * originais não devem ser alteradas.
      */
     public List<Character> mergeLists(List<Character> t1, List<Character> t2) {
-        List<Character> t3;
-        for(int i = 0; i < t1.get(i); i++) {
-            if(t3.get(i) % 2 == 0){
-                t3.insert(t1.get(i), i);
-            }
-        }
-        for(int i = 0; i < t2.get(i); i++) {
-            if(t3.get(i) % 2 != 0){
-                t3.insert(t2.get(i), i);
+        int max = t1.numElements() + t2.numElements();
+        List<Character> t3 = new StaticList<>(max);
+        int contT1 = 0;
+        int contT2 = 0;
+        for(int i = 0; i < max; i++) {
+            if(i % 2 == 0){
+                t3.insert(t1.get(contT1), i);
+                contT1++;
+            } else {
+                t3.insert(t2.get(contT2), i);
+                contT2++;
             }
         }
         return t3;
@@ -48,6 +52,8 @@ public class Exercicios {
      * para o início da primeira.
      */
     public void prependList(List<Double> t1, List<Double> t2) {
+        for(int i = 0; i < t2.numElements(); i++) {
+            t1.insert(t2.get(i), i);
         }
     }
 }
