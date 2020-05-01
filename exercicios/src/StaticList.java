@@ -120,17 +120,59 @@ public class StaticList<E> implements List<E> {
      * Será removida apenas a primeira ocorrência do elemento.
      */
     public boolean remove(E element) {
-        for(int i = 0; i < numElements; i++) {
-            if(element.equals(elements[i])) {
-                elements[i] = null;
-                for (int j = i; j < numElements-1; j++) {
-                    elements[j] = elements[j+1];
+        if(isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            for (int i = 0; i < numElements; i++) {
+                if (element.equals(elements[i])) {
+                    elements[i] = null;
+                    for (int j = i; j < numElements - 1; j++) {
+                        elements[j] = elements[j + 1];
+                    }
+                    elements[numElements - 1] = null;
+                    numElements--;
+                    return true;
                 }
-                elements[numElements - 1] = null;
-                numElements--;
-                return true;
             }
+            return false;
         }
-        return false;
+    }
+
+    /**
+     * 5. Implemente o método insertAfter, abaixo, que insere o elemento obj2 uma posição após
+     * o elemento obj1. Considere a primeira ocorrência de obj1. Se obj1 não for encontrado,
+     * gere uma exceção apropriada.
+     */
+    public void insertAfter(E obj1, E obj2) {
+        if (isFull()) {
+            throw new OverflowException();
+        } else {
+            for (int i = 0; i < numElements; i++) {
+                if (obj1.equals(elements[i])) {
+                    for (int j = numElements - 1; j >= i; j--) {
+                        elements[j + 1] = elements[j];
+                    }
+                    elements[i] = obj2;
+                    numElements++;
+                    return;
+                }
+            }
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    /**
+     * 6. Implemente um método que troca de lugar os objetos localizados nas posições
+     * passadas como parâmetro. Se alguma das posições for inválida, deve ser gerada a
+     * exceção do Java IndexOutOfBoundsException.
+     */
+    public void swap(int pos1, int pos2) {
+        if ((pos1 < 0 || pos1 >= numElements) && (pos2 < 0 || pos2 >= numElements)) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            E aux = elements[pos2];
+            elements[pos2] = elements[pos1];
+            elements[pos1] = aux;
+        }
     }
 }
